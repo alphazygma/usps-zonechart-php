@@ -2,12 +2,14 @@
 namespace Shipping\ZoneChart;
 
 /**
- * The <kbd>Zip2ZoneDefinition</kbd>
+ * The <kbd>Zip2ZoneDefinition</kbd> class represents a definition between a ZipCode range to a Zone.
  *
- * @author Alejandro Salazar (alejandros@pley.com)
- * @version 1.0
- * @package 
- * @subpackage
+ * @author     Alejandro Salazar (alejandros@pley.com)
+ * @version    1.0
+ * @license    http://www.gnu.org/licenses/lgpl-3.0.en.html GNU LGPLv3
+ * @link       https://github.com/alphazygma/usps-zonechart-php
+ * @package    Shipping
+ * @subpackage ZoneChart
  */
 class Zip2ZoneDefinition
 {
@@ -130,7 +132,7 @@ class Zip2ZoneDefinition
     {
         // Checking if the zipcode is a Zip+4 style, if so, we need to trim the `+4` part
         if (is_string($zipcode) && strpos($zipcode, '-') !== FALSE) {
-            $zipcode = substr($zipcode, strpos($zipcode, '-'));
+            $zipcode = substr($zipcode, 0, strpos($zipcode, '-'));
         }
         
         $zipCodeInt = (int)$zipcode;

@@ -2,12 +2,15 @@
 namespace Shipping\ZoneChart;
 
 /**
- * The <kbd>ZoneChart</kbd>
+ * The <kbd>ZoneChart</kbd> class provides the functionality to find the Zone between a Source
+ * ZipCode and a destination ZipCode.
  *
- * @author Alejandro Salazar (alejandros@pley.com)
- * @version 1.0
- * @package 
- * @subpackage
+ * @author     Alejandro Salazar (alejandros@pley.com)
+ * @version    1.0
+ * @license    http://www.gnu.org/licenses/lgpl-3.0.en.html GNU LGPLv3
+ * @link       https://github.com/alphazygma/usps-zonechart-php
+ * @package    Shipping
+ * @subpackage ZoneChart
  */
 class ZoneChart
 {
@@ -70,19 +73,23 @@ class ZoneChart
     
     /**
      * Returns the JSON string confugration for the supplied zip code.
-     * @param string $szipCode
+     * @param string $zipCode
      * @return string
      * @throws \Exception If there is no configuration for the source Zipcode
      */
-    protected function _getJsonConfig($szipCode)
+    protected function _getJsonConfig($zipCode)
     {
         // Using the ConfigGenerator to retrieve the path to the configuration given a ZipCode
-        $configPath = ConfigGenerator::getDataPath($szipCode);
+        $configPath = ConfigGenerator::getDataPath($zipCode);
+        
+        if (!file_exists($configPath)) {
+            throw new \Exception('No configuration found for supplied ZipCode ' . $zipCode);
+        }
         
         // Obatining the JSON configuration string inside the file
         $jsonConfig = file_get_contents($configPath);
         if ($jsonConfig === false) {
-            throw new \Exception('No configuration found for supplied ZipCode ' . $szipCode);
+            throw new \Exception('Could not read contents of config for ZipCode ' . $zipCode);
         }
         
         return $jsonConfig;
