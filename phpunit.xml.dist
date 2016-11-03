@@ -18,7 +18,10 @@
 
     <filter>
         <whitelist>
-            <directory>./</directory>
+            <directory>./src</directory>
+            <exclude>
+                  <file>./src/Shipping/ZoneChart/ConfigGenerator.php</file>
+            </exclude>
         </whitelist>
     </filter>
     
